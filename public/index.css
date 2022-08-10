@@ -7,6 +7,7 @@
 header {
     background-color: black;
     color: white;
+    text-align: center;
 }
 
 h1 {
@@ -26,7 +27,7 @@ aside {
 }
 
 form {
-    width: 350px;
+    width: 250px;
     height: 300px;
     background-color: grey;
     border-radius: 12px;
@@ -43,10 +44,14 @@ form {
 
 
 button {
-    background: rgba(14, 12, 12, 0.944);
+    background: darkslateblue;
     color: antiquewhite;
     margin: 5px;
     border-radius: 10px;
+}
+
+.btn1{
+    background-attachment: grey;
 }
   
 input[type='text'] {
@@ -114,3 +119,12 @@ input[type='text'] {
 .btn{
     width: 30px;
 }
+
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }

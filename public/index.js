@@ -1,14 +1,16 @@
 //const { createMedia } = require("../server/controller")
 
 const form = document.querySelector('form')
-//const nameInput = document.querySelector('#name-input')
 const mediaType = document.querySelector('#media-type')
 const mediaName = document.querySelector('#media-name')
 const mediaCreator = document.querySelector('#media-creator')
 const mediaImg = document.querySelector('#media-img')
 const mediaList = document.querySelector('#mediaList')
-//const axios = require("axios");
+const videoGameList = document.getElementById('btnVG')
+const boardGameList = document.getElementById('btnBG')
+const bookList = document.getElementById('btnBk')
 
+// form function to add entry media
 function handleSubmit(e) {
     e.preventDefault()
 
@@ -36,8 +38,6 @@ function handleSubmit(e) {
         mediaImg: mediaImg.value
     }
 
-    //createMedia(body)
-
     axios.post('http://localhost:4004/media', body)
         .then(() => {
             mediaType.value = ''
@@ -49,7 +49,6 @@ function handleSubmit(e) {
 
         })
 
-    
 }
 
 function deleteCard(id) {
@@ -58,32 +57,11 @@ function deleteCard(id) {
         .catch(err => console.log(err))
 }
 
-
-// function getMedia() {
-//     mediaList.innerHTML = ''
-
-//     axios.get('http://localhost:4004/media/')
-//         .then(res => {
-//             console.log(res.data[0].media_type)
-//             let mediaCard = document.createElement('div')
-//             res.data.forEach(elem => {
-               
-//                     mediaCard = `<div class="media-list">
-                    
-//                     <h2>${elem.media_type}, ${elem.media_name}, ${elem.media_creator}, ${elem.media_img}</h2>    
-//                     </div>
-//                 `  
-//                 mediaList.innerHTML += mediaCard
-//             })
-//         })
-// }
-
+// displays media
 function getMedia() {
     mediaList.innerHTML = ''
-
     axios.get('http://localhost:4004/media/')
         .then(res => {
-            //console.log(res.data[0].media_type)
             let mediaCard = document.createElement('div')
             mediaCard.classList.add('media-card')
             res.data.forEach(elem => {
@@ -101,5 +79,67 @@ function getMedia() {
         })
 }
 
+function getVideoGames(){
+    mediaList.innerHTML = ''
+    axios.get('http://localhost:4004/videoGames/')
+        .then(res => {
+            let mediaCard = document.createElement('div')
+            mediaCard.classList.add('media-card')
+            res.data.forEach(elem => {
+                    mediaCard = `<div class="media-card"><img alt= 'media cover image' src=${elem.media_img} class="media-cover-image"/>
+                    <p class="title">Media: ${elem.media_type}<br>Name: ${elem.media_name}<br>Creator: ${elem.media_creator}</p>
+                    <div class "btns-cointainer">
+                    <button onclick="deleteCard(${elem['media_id']})">Delete</button>
+                    </div>
+                    </div>
+                `  
+                mediaList.innerHTML += mediaCard
+            })
+        })
+}
+
+function getBoardGames(){
+    mediaList.innerHTML = ''
+    axios.get('http://localhost:4004/boardGames/')
+        .then(res => {
+            let mediaCard = document.createElement('div')
+            mediaCard.classList.add('media-card')
+            res.data.forEach(elem => {
+                    mediaCard = `<div class="media-card"><img alt= 'media cover image' src=${elem.media_img} class="media-cover-image"/>
+                    <p class="title">Media: ${elem.media_type}<br>Name: ${elem.media_name}<br>Creator: ${elem.media_creator}</p>
+                    <div class "btns-cointainer">
+                    <button onclick="deleteCard(${elem['media_id']})">Delete</button>
+                    </div>
+                    </div>
+                `  
+                mediaList.innerHTML += mediaCard
+            })
+        })
+}
+
+function getBooks(){
+    mediaList.innerHTML = ''
+    axios.get('http://localhost:4004/books/')
+        .then(res => {
+            let mediaCard = document.createElement('div')
+            mediaCard.classList.add('media-card')
+            res.data.forEach(elem => {
+                    mediaCard = `<div class="media-card"><img alt= 'media cover image' src=${elem.media_img} class="media-cover-image"/>
+                    <p class="title">Media: ${elem.media_type}<br>Name: ${elem.media_name}<br>Creator: ${elem.media_creator}</p>
+                    <div class "btns-cointainer">
+                    <button onclick="deleteCard(${elem['media_id']})">Delete</button>
+                    </div>
+                    </div>
+                `  
+                mediaList.innerHTML += mediaCard
+            })
+        })
+}
+
 getMedia()
 form.addEventListener('submit', handleSubmit)
+
+document.getElementById('btnVG').addEventListener("click", getVideoGames)
+document.getElementById('btnBG').addEventListener("click", getBoardGames)
+document.getElementById('btnBk').addEventListener("click", getBooks)
+document.getElementById('btnAM').addEventListener("click", getMedia)

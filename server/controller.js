@@ -31,7 +31,6 @@ module.exports = {
                 ('Video Game', 'MarioKart 8 Deluxe', 'Nintendo', 'https://m.media-amazon.com/images/I/81mqZx5X1XL._SL1500_.jpg' ),
                 ('Video Game', 'Super Smash Bros', 'Nintendo', 'https://m.media-amazon.com/images/I/810wFm-lJBL._SL1500_.jpg' ),
                 ('Video Game', 'Rayman Legends', 'Ubisoft', 'https://m.media-amazon.com/images/I/81XK3SZDFZL._SL1500_.jpg' ),
-                ('Video Game', 'Minecraft', 'Microsoft', 'https://m.media-amazon.com/images/I/81gJUSx-TjL._SL1500_.jpg' ),
                 ('Board Game', 'Jenga', 'Hasbro Gaming', 'https://m.media-amazon.com/images/I/71nVxtURtlL._AC_SL1500_.jpg'),
                 ('Board Game', 'Scrabble', 'Hasbro Gaming', 'https://m.media-amazon.com/images/I/81OjLGNO5VL._AC_SL1500_.jpg'),
                 ('Board Game', 'Uno', 'Mattel', 'https://m.media-amazon.com/images/I/71dSl3Q0rEL._AC_SL1500_.jpg'),
@@ -49,8 +48,33 @@ module.exports = {
         }).catch(err => console.log('error seeding DB', err))
     },
 
+    // retrive all media
     getMedia: (req,res) => {
         sequelize.query(`SELECT * FROM media;`)
+        .then(dbRes => res.status(200).send(dbRes[0]))
+        .catch(err => console.log('error getMedia',err))
+    },
+
+    //retrive video games
+    getVideoGames: (req,res) =>{
+        sequelize.query(`SELECT * FROM media
+        WHERE media_type = 'Video Game';`)
+        .then(dbRes => res.status(200).send(dbRes[0]))
+        .catch(err => console.log('error getMedia',err))
+    },
+
+     //retrive board games
+     getBoardGames: (req,res) =>{
+        sequelize.query(`SELECT * FROM media
+        WHERE media_type = 'Board Game';`)
+        .then(dbRes => res.status(200).send(dbRes[0]))
+        .catch(err => console.log('error getMedia',err))
+    },
+
+     //retrive books
+     getBooks: (req,res) =>{
+        sequelize.query(`SELECT * FROM media
+        WHERE media_type = 'Book';`)
         .then(dbRes => res.status(200).send(dbRes[0]))
         .catch(err => console.log('error getMedia',err))
     },
@@ -61,17 +85,7 @@ module.exports = {
         VALUES ('${mediaType}','${mediaName}','${mediaCreator}','${mediaImg}'); `)
         .then((dbRes) => res.status(200).send(dbRes[0]))
         .catch((err) => console.log('error createCity',err));
-    },
-
-    // getCities: (req,res) => {
-    //     sequelize.query(`SELECT c1.city_id, c1.name as city, c1.rating, c2.country_id, c2.name AS country
-    //     FROM cities AS c1
-    //     JOIN countries AS c2
-    //     ON c2.country_id = c1.country_id
-    //     ORDER BY c1.rating DESC;`)
-    //     .then(dbRes => res.status(200).send(dbRes[0]))
-    //     .catch(err => console.log('error getCities',err))
-    // },  
+    }, 
 
     deleteMedia: (req, res) => {
         let { id } = req.params;

@@ -5,7 +5,7 @@ const cors = require('cors')
 //const  axios = require("axios");
 const {} = require('./controller.js')
 const {SERVER_PORT} = process.env || 4004
-const {seed, getMedia, createMedia, deleteMedia} = require('./controller.js')
+const {seed, getMedia, createMedia, deleteMedia, getVideoGames, getBoardGames, getBooks} = require('./controller.js')
 
 app.use(express.json())
 app.use(cors())
@@ -32,6 +32,9 @@ app.post('/seed', seed)
 
 // Media
 app.get('/media', getMedia)
+app.get('/videoGames', getVideoGames)
+app.get('/boardGames', getBoardGames)
+app.get('/books', getBooks)
 
 app.post('/media', createMedia)
 app.delete('/media/:id', deleteMedia)
