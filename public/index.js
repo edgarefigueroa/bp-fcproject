@@ -1,31 +1,55 @@
+//const { createMedia } = require("../server/controller")
+
 const form = document.querySelector('form')
-const nameInput = document.querySelector('#name-input')
-//const countrySelect = document.querySelector('#media-select')
-const mediaList = document.querySelector('#media-list')
+//const nameInput = document.querySelector('#name-input')
+const mediaType = document.querySelector('#media-type')
+const mediaName = document.querySelector('#media-name')
+const mediaCreator = document.querySelector('#media-creator')
+const mediaImg = document.querySelector('#media-img')
+const mediaList = document.querySelector('#mediaList')
 //const axios = require("axios");
 
 function handleSubmit(e) {
     e.preventDefault()
 
-    if (nameInput.value < 1) {
-        alert ('You must enter a city name')
+    if (mediaType.value < 1) {
+        alert ('You must enter a Media Type')
+        return
+    }
+    if (mediaName.value < 1) {
+        alert ('You must enter a Media Name')
+        return
+    }
+    if (mediaCreator.value < 1) {
+        alert ('You must enter a Media Creator')
+        return
+    } 
+    if (mediaImg.value < 1) {
+        alert ('You must enter a Media Image URL')
         return
     }
 
-    let userRating = document.querySelector('input[name="rating"]:checked').value
     let body = {
-        name: nameInput.value, 
-        rating: +userRating, 
-        countryId: +countrySelect.value
+        mediaType: mediaType.value,
+        mediaName: mediaName.value,
+        mediaCreator: mediaCreator.value,
+        mediaImg: mediaImg.value
     }
+
+    //createMedia(body)
 
     axios.post('http://localhost:4004/media', body)
         .then(() => {
-            //countrySelect.value = 1
-            nameInput.value = ''
+            mediaType.value = ''
+            mediaName.value = ''
+            mediaCreator.value = ''
+            mediaImg.value = ''
             
             getMedia()
+
         })
+
+    
 }
 
 function deleteCard(id) {
@@ -34,36 +58,48 @@ function deleteCard(id) {
         .catch(err => console.log(err))
 }
 
+
 // function getMedia() {
 //     mediaList.innerHTML = ''
-//     axios.get('http://localhost:4004/media')
+
+//     axios.get('http://localhost:4004/media/')
 //         .then(res => {
+//             console.log(res.data[0].media_type)
+//             let mediaCard = document.createElement('div')
 //             res.data.forEach(elem => {
-//                 option.textContent = media.mediaName
-//                 let mediaCard = `<div class="media-card">
-//                 <h2>${elem.mediaName}, ${elem.mediaType}</h2>
-                
-//                 <button onclick="deleteCard(${elem['media_id']})">Delete</button>
-//                 </div>
-//             `  
-//             mediaList.innerHTML += mediaCard
+               
+//                     mediaCard = `<div class="media-list">
+                    
+//                     <h2>${elem.media_type}, ${elem.media_name}, ${elem.media_creator}, ${elem.media_img}</h2>    
+//                     </div>
+//                 `  
+//                 mediaList.innerHTML += mediaCard
 //             })
 //         })
 // }
 
 function getMedia() {
-    axios.get('http://localhost:4004/media')
+    mediaList.innerHTML = ''
+
+    axios.get('http://localhost:4004/media/')
         .then(res => {
-            res.data.forEach(media => {
-                const option = document.createElement('option')
-                option.setAttribute('value', media['media_id'])
-                option.textContent = country.mediaName
-                countrySelect.appendChild(option)
+            //console.log(res.data[0].media_type)
+            let mediaCard = document.createElement('div')
+            mediaCard.classList.add('media-card')
+            res.data.forEach(elem => {
+               
+                    mediaCard = `<div class="media-card"><img alt= 'media cover image' src=${elem.media_img} class="media-cover-image"/>
+                    <p class="title">Media: ${elem.media_type}<br>Name: ${elem.media_name}<br>Creator: ${elem.media_creator}</p>
+                    <div class "btns-cointainer">
+                    <button onclick="deleteCard(${elem['media_id']})">Delete</button>
+                    </div>
+                    </div>
+                `  
+                
+                mediaList.innerHTML += mediaCard
             })
         })
 }
 
-
 getMedia()
-
 form.addEventListener('submit', handleSubmit)

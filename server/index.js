@@ -34,6 +34,6 @@ app.post('/seed', seed)
 app.get('/media', getMedia)
 
 app.post('/media', createMedia)
-// app.delete('/cities/:id', deleteCity)
+app.delete('/media/:id', deleteMedia)
 
 app.listen(SERVER_PORT, () => console.log(`up on ${SERVER_PORT}`))
