@@ -1,5 +1,3 @@
-//const { createMedia } = require("../server/controller")
-
 const form = document.querySelector('form')
 const mediaType = document.querySelector('#media-type')
 const mediaName = document.querySelector('#media-name')
@@ -135,6 +133,7 @@ function getBooks(){
             })
         })
 }
+
 
 getMedia()
 form.addEventListener('submit', handleSubmit)

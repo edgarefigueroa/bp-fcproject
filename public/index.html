@@ -6,42 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Media</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 </head>
 <body>
     <header>
         <h1>Family Media</h1>
+    
         <button type="button" id="btnAM">All Media</button>
         <button type="button" id="btnVG">Video Games</button>
         <button type="button" id="btnBG">Board Games</button>
         <button type="button" id="btnBk">Essential Books</button>
-        
     </header>
 
     <main>
-
         
         <aside>
             <form>
                 <h2>Add Media</h2>
-                <!-- <label for="media-name">Media type:</label> -->
+                
                 <input type='text' id="media-type" placeholder=" Media Type"/>
-                <!-- <label for="media-name">Media Name:</label> -->
+                
                 <input type='text' id="media-name" placeholder=" Media Name"/>
-                <!-- <label for="media-creator">Media Creator:</label> -->
+                
                 <input type='text' id="media-creator" placeholder=" Media Creator"/>
-                <!-- <label for="media-img">Media Image URL:</label> -->
+                
                 <input type='text' id="media-img" placeholder=" Media Image URL"/>
+               
                 <button class="btn">Add</button>
             </form>
-          
+            
         </aside>
 
         
         <div class="flex-container" id="mediaList" ></div>
-        <!-- <div class="flex-container" id="videoGameList" ></div> -->
         
+               
     </main>
-
+    <footer>
+        <p><a href="https://github.com/edgarefigueroa/bp-fcproject"><i class="fa fa-github" style="font-size:36px"></i></a></p>
+    </footer> 
     <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script src="index.js"></script>
 </body>

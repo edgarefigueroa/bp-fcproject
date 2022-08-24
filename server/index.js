@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
-//const  axios = require("axios");
 const {} = require('./controller.js')
 const {SERVER_PORT} = process.env || 4004
 const {seed, getMedia, createMedia, deleteMedia, getVideoGames, getBoardGames, getBooks} = require('./controller.js')
